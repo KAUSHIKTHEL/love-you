@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Love You Suhaima</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3, #ffb199);
+      position: relative;
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px 20px;
+      width: 90%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      color: white;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+    }
+
+    .typing-text {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      min-height: 120px;
+      border-right: 3px solid white;
+      white-space: pre-wrap;
+      overflow: hidden;
+      display: inline-block;
+      animation: blink 0.7s infinite;
+    }
+
+    .heart {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .love-btn {
+      margin-top: 25px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #ff4d6d;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .love-btn:hover {
+      transform: scale(1.08);
+      background: #ffe6eb;
+    }
+
+    .floating-heart,
+    .floating-flower {
+      position: absolute;
+      color: rgba(255,255,255,0.85);
+      animation: rise 8s linear infinite;
+      bottom: -50px;
+      pointer-events: none;
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .typing-text {
+        font-size: 1rem;
+      }
+
+      .heart {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="heart">❤️</div>
+    <h1>I Love You Suhaima</h1>
+    <div class="typing-text" id="typing"></div>
+    <button class="love-btn" onclick="launchHeartsAndFlowers()">Click for More Love 💖</button>
+  </div>
+
+  <script>
+    const text = `Suhaima,\n\nFrom the moment you came into my life, everything became more beautiful.\n\nYou make me smile, you make me happy, and I just want you to know...\n\nI Love You ❤️`;
+
+    let index = 0;
+    const typingElement = document.getElementById('typing');
+
+    function typeText() {
+      if (index < text.length) {
+        typingElement.innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeText, 50);
+      }
+    }
+
+    typeText();
+
+    function launchHeartsAndFlowers() {
+      for (let i = 0; i < 25; i++) {
+        setTimeout(() => {
+          createHeart();
+          createFlower();
+          createPopHeart();
+        }, i * 120);
+      }
+    }
+
+    function createPopHeart() {
+      const popHeart = document.createElement('div');
+      const cuteHearts = ['💖', '💘', '💕', '💗', '❤'];
+
+      popHeart.innerHTML = cuteHearts[Math.floor(Math.random() * cuteHearts.length)];
+      popHeart.style.position = 'absolute';
+      popHeart.style.left = '50%';
+      popHeart.style.top = '65%';
+      popHeart.style.fontSize = (Math.random() * 15 + 20) + 'px';
+      popHeart.style.pointerEvents = 'none';
+      popHeart.style.transform = 'translate(-50%, -50%)';
+      popHeart.style.zIndex = '20';
+
+      const randomX = (Math.random() - 0.5) * 300;
+      const randomY = -Math.random() * 250 - 50;
+
+      popHeart.animate([
+        {
+          transform: 'translate(-50%, -50%) scale(0.5)',
+          opacity: 1
+        },
+        {
+          transform: 'translate(' + randomX + 'px, ' + randomY + 'px) scale(1.4)',
+          opacity: 0
+        }
+      ], {
+        duration: 1200,
+        easing: 'ease-out'
+      });
+
+      document.body.appendChild(popHeart);
+
+      setTimeout(() => {
+        popHeart.remove();
+      }, 1200);
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('floating-heart');
+
+      const heartSymbols = ['❤', '💖', '💗', '💕', '💘'];
+      heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+      heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('floating-flower');
+
+      const flowers = ['🌸', '🌹', '🌺', '💐', '🌷'];
+      flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.fontSize = Math.random() * 20 + 20 + 'px';
+      flower.style.animationDuration = Math.random() * 3 + 5 + 's';
+      document.body.appendChild(flower);
+
+      setTimeout(() => {
+        flower.remove();
+      }, 8000);
+    }
+
+    setInterval(() => {
+      createHeart();
+      createFlower();
+    }, 500);
+  </script>
+
+</body>
+</html>
